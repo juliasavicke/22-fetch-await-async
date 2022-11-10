@@ -10,23 +10,22 @@ async function fetchData() {
   const data = await response.json();
   return data;
 }
-//.then((data) => createCards(data.data))
-//.catch((err) => console.warn(err));
-//fetchData();
 
 function createCards(data) {
   divEl.innerHTML = "";
   data.forEach((pObj) => {
     const cardEl = document.createElement("div");
-    cardEl.className = "card";
+    cardEl.className = "card card--user";
+    divEl.append(cardEl);
+
     const h2El = document.createElement("h2");
     h2El.textContent = `${pObj["first_name"]} ${pObj["last_name"]}`;
     const pEl = document.createElement("p");
-    pEl.textContent = `Email: ${pObj["email"]}, ID: ${pObj["id"]}`;
+    pEl.textContent = `${pObj["email"]}
+    (id: ${pObj["id"]})`;
     const imgEl = document.createElement("img");
     imgEl.src = pObj.avatar;
-    cardEl.append(h2El, pEl, imgEl);
-    divEl.append(cardEl);
+    cardEl.append(imgEl, h2El, pEl);
   });
 }
 

@@ -3,6 +3,27 @@
 
 #cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
+}
+.card--user {
+  display: grid;
+  grid-template-columns: 30% auto;
+  gap: 1rem;
+  padding: 0;
+  overflow: hidden;
+}
+.card--user img {
+  grid-row: span 2;
+}
+h2,
+p {
+  margin-bottom: 0;
+  align-self: center;
+}
+h2 {
+  align-self: end;
+}
+p {
+  align-self: start;
 }
