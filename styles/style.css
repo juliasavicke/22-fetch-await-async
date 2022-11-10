@@ -27,3 +27,8 @@ h2 {
 p {
   align-self: start;
 }
+.listDiv {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
