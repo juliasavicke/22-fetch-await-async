@@ -1,6 +1,8 @@
 "use strict";
 console.log("uzd.js");
 
+let mainUsersArr = [];
+
 const divEl = document.getElementById("cards");
 const btnEl = document.getElementById("get1");
 const sortBtnEl = document.getElementById("sort");
@@ -17,10 +19,17 @@ listDivEl.append(listDivEl1, listDivEl2);
 const ulEl = document.createElement("ul");
 listDivEl1.append(ulEl);
 
-async function fetchData() {
-  const response = await fetch("https://reqres.in/api/users?page=1.");
-  const data = await response.json();
-  return data;
+// async function fetchData() {
+//   const response = await fetch("https://reqres.in/api/users?page=1.");
+//   const data = await response.json();
+//   return data;
+// }
+
+function fetchData() {
+  return fetch("https://reqres.in/api/users?page=1.")
+    .then((resp) => resp.json())
+    .then((dataInJs) => dataInJs.data)
+    .catch((err) => console.warn("klaida getData", err));
 }
 
 function createCards(data) {
@@ -76,7 +85,7 @@ function createUserCard(user) {
 function getFetchedUser(username) {
   const usernameArr = username.split(" ");
   return fetchData().then((fdata) => {
-    return fdata.data.filter((fd) => Number(fd.id) === Number(usernameArr[2]));
+    return fdata.filter((fd) => Number(fd.id) === Number(usernameArr[2]));
   });
 }
 
@@ -96,14 +105,17 @@ function sortFetchedData(data) {
   createCards(sortedData);
 }
 
-btnEl.addEventListener("click", () => {
-  return fetchData().then((fdata) => createCards(fdata.data));
+btnEl.addEventListener("click", async () => {
+  const fdata = await fetchData();
+  mainUsersArr = fdata;
+  createCards(fdata);
 });
 
-sortBtnEl.addEventListener("click", () => {
-  return fetchData().then((fdata) => sortFetchedData(fdata.data));
+sortBtnEl.addEventListener("click", async () => {
+  sortFetchedData(mainUsersArr);
 });
 
-listBtnEl.addEventListener("click", () => {
-  return fetchData().then((fdata) => createList(fdata.data));
+listBtnEl.addEventListener("click", async () => {
+  const fdata = await fetchData();
+  createList(fdata);
 });

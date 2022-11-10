@@ -29,6 +29,14 @@ p {
 }
 .listDiv {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 30% auto;
   gap: 1rem;
+}
+
+li {
+  list-style-type: none;
+  margin: 0.5em;
+}
+li:hover {
+  background-color: lightgray;
 }
