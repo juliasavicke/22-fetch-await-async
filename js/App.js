@@ -64,9 +64,8 @@ class App {
       liEl.style.cursor = "pointer";
       this.el.listDivEl1.append(liEl);
       liEl.addEventListener("click", (event) => {
-        return this.getFetchedUser(event.target.textContent).then((user) =>
-          this.createUserCard(user[0])
-        );
+        const user = this.getFetchedUser(event.target.textContent);
+        this.createUserCard(user[0]);
       });
     });
   }
@@ -88,9 +87,13 @@ class App {
 
   getFetchedUser(username) {
     const usernameArr = username.split(" ");
-    return this.fetchData().then((fdata) => {
-      return fdata.filter((fd) => Number(fd.id) === Number(usernameArr[2]));
-    });
+    console.log(
+      "this.mainUsersArr.filter((fd) => Number(fd.id) === Number(usernameArr[2])) ===",
+      this.mainUsersArr.filter((fd) => Number(fd.id) === Number(usernameArr[2]))
+    );
+    return this.mainUsersArr.filter(
+      (fd) => Number(fd.id) === Number(usernameArr[2])
+    );
   }
 
   sortFetchedData(data) {
@@ -123,6 +126,7 @@ class App {
 
     this.el.listBtnEl.addEventListener("click", async () => {
       const fdata = await this.fetchData();
+      this.mainUsersArr = fdata;
       this.createList(fdata);
     });
   }
