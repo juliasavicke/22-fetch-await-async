@@ -8,7 +8,13 @@ class App {
   constructor() {
     this.initTargets();
     this.initEventListeners();
-    this.fetchData();
+    //this.fetchData();
+    this.addFetchedDataToArr();
+  }
+
+  async addFetchedDataToArr() {
+    this.mainUsersArr = await this.fetchData();
+    console.log("mainUsersArr ===", this.mainUsersArr);
   }
 
   initTargets() {
@@ -114,10 +120,10 @@ class App {
 
   initEventListeners() {
     this.el.btnEl.addEventListener("click", async () => {
-      const fdata = await this.fetchData();
-      this.mainUsersArr = fdata;
-      console.log("fdata ===", fdata);
-      this.createCards(fdata);
+      // const fdata = await this.fetchData();
+      // this.mainUsersArr = fdata;
+      // console.log("fdata ===", fdata);
+      this.createCards(this.mainUsersArr);
     });
 
     this.el.sortBtnEl.addEventListener("click", async () => {
@@ -125,9 +131,9 @@ class App {
     });
 
     this.el.listBtnEl.addEventListener("click", async () => {
-      const fdata = await this.fetchData();
-      this.mainUsersArr = fdata;
-      this.createList(fdata);
+      // const fdata = await this.fetchData();
+      // this.mainUsersArr = fdata;
+      this.createList(this.mainUsersArr);
     });
   }
 }
